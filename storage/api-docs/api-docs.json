@@ -1,0 +1,459 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Nice Planet API",
+        "description": "Nice Planet API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Faz login e retorna um token de acesso",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Credenciais de login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "device_name"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "lpagac@example.net"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "device_name": {
+                                        "type": "string",
+                                        "example": "swagger"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token de acesso gerado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "seu_token_de_acesso"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Cria um novo usuário",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Dados do novo usuário",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "name"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "novo_nome_de_usuario"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "nova_senha"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "novo_nome"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro ao criar usuário"
+                    }
+                }
+            }
+        },
+        "/index": {
+            "get": {
+                "operationId": "63e543b91011a507c0523873c91fad30",
+                "responses": {
+                    "200": {
+                        "description": "Descrição da resposta"
+                    }
+                }
+            }
+        },
+        "/api/produtor": {
+            "post": {
+                "tags": [
+                    "Produtor"
+                ],
+                "summary": "Cria um novo produtor",
+                "description": "Cadastra um novo produtor no sistema.",
+                "operationId": "storeProdutor",
+                "requestBody": {
+                    "description": "Dados necessários para criar um novo produtor",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nomeProdutor"
+                                ],
+                                "properties": {
+                                    "nomeProdutor": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "cpfProdutor": {
+                                        "type": "string",
+                                        "example": "123.456.789-01"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produtor criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "idProdutor": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nomeProdutor": {
+                                            "type": "string",
+                                            "example": "João Silva"
+                                        },
+                                        "cpfProdutor": {
+                                            "type": "string",
+                                            "example": "123.456.789-01"
+                                        },
+                                        "is_active": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-01T00:00:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos fornecidos"
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/produtor/{id}": {
+            "get": {
+                "tags": [
+                    "Produtor"
+                ],
+                "summary": "Obtém informações de um produtor pelo ID",
+                "description": "Obtém informações de um produtor com base no ID fornecido.",
+                "operationId": "getProdutorById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produtor a ser obtido",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informações do produtor obtidas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "idProdutor": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nomeProdutor": {
+                                            "type": "string",
+                                            "example": "João Silva"
+                                        },
+                                        "cpfProdutor": {
+                                            "type": "string",
+                                            "example": "123.456.789-01"
+                                        },
+                                        "is_active": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-01T00:00:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produtor não encontrado"
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/proriedadeindex": {
+            "get": {
+                "operationId": "47f48c3f3eeef881adceca9da6fdaec1",
+                "responses": {
+                    "200": {
+                        "description": "Descrição da resposta"
+                    }
+                }
+            }
+        },
+        "/api/propriedade": {
+            "post": {
+                "tags": [
+                    "Propriedade"
+                ],
+                "summary": "Cria uma nova propriedade",
+                "description": "Cadastra uma nova propriedade no sistema.",
+                "operationId": "storePropriedade",
+                "requestBody": {
+                    "description": "Dados necessários para criar uma nova propriedade",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nomePropriedade"
+                                ],
+                                "properties": {
+                                    "nomePropriedade": {
+                                        "type": "string",
+                                        "example": "Fazenda São João"
+                                    },
+                                    "cadastroRural": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Propriedade criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "idPropriedade": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nomePropriedade": {
+                                            "type": "string",
+                                            "example": "Fazenda São João"
+                                        },
+                                        "cpfPropriedade": {
+                                            "type": "string",
+                                            "example": "123.456.789-01"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-01T00:00:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos fornecidos"
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/propriedade/{id}": {
+            "get": {
+                "tags": [
+                    "Propriedade"
+                ],
+                "summary": "Obter detalhes de uma propriedade",
+                "description": "Obtém os detalhes de uma propriedade com base no ID fornecido.",
+                "operationId": "showPropriedade",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da propriedade a ser obtida",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes da propriedade obtidos com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "idPropriedade": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nomePropriedade": {
+                                            "type": "string",
+                                            "example": "Fazenda São João"
+                                        },
+                                        "cadastroRural": {
+                                            "type": "string",
+                                            "example": "1234567890"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2024-01-01T00:00:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Propriedade não encontrada"
+                    },
+                    "500": {
+                        "description": "Erro interno no servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

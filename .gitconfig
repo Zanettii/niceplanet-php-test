@@ -1,0 +1,10 @@
+[safe]
+	directory = D:/Projetos/Kinvo/everest.kinvo.portfoliomanager
+	directory = D:/Projetos/Kinvo/kinvo.portfolio.querystack
+	directory = D:/Projetos/Kinvo/everest.kinv-refactor
+	directory = D:/Projetos/Kinvo/portfolio.command
+[user]
+	name = Richard Dantas
+	email = adriano.richard@netimoveis.com
+[credential]
+	helper = "!f() { /var/www/.vscode-server/bin/0ee08df0cf4527e40edc9aa28f4b5bd38bbff2b2/node /tmp/vscode-remote-containers-c32e4c1c-d39e-4cbb-8e49-95beff5842f3.js git-credential-helper $*; }; f"
